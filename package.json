@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "secure-app-demo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
