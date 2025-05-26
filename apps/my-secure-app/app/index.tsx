@@ -69,14 +69,14 @@ export default function Index() {
       </Text>
       <Text>Secure store value: {localSecureStoreValue || "No value"}</Text>
       <Pressable
-        onPress={authenticate}
+        onPress={() => authenticate()}
         style={[
           styles.buttonContainer,
           { backgroundColor: isAuthenticated ? "grey" : "black" },
         ]}
       >
         <Text style={styles.buttonText}>
-          {!isAuthenticated ? "Authenticate" : "Clear authentication"}
+          {!isAuthenticated ? "Authenticate" : "Authenticated"}
         </Text>
       </Pressable>
       <Pressable onPress={setSecureValue} style={styles.buttonContainer}>

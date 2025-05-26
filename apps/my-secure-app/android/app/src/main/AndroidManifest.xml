@@ -27,5 +27,6 @@
         <data android:scheme="secureapp"/>
       </intent-filter>
     </activity>
+    <activity android:name="expo.modules.moduleauthentication.AuthActivity"/>
   </application>
 </manifest>

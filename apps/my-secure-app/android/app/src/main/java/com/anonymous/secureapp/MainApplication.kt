@@ -56,10 +56,10 @@ class MainApplication : Application(), ReactApplication {
       load()
     }
     startKoin() {
-    modules(koinModules)
-}
+        modules(koinModules)
+    }
 
-ApplicationLifecycleDispatcher.onApplicationCreate(this)
+    ApplicationLifecycleDispatcher.onApplicationCreate(this)
   }
 
   override fun onConfigurationChanged(newConfig: Configuration) {
