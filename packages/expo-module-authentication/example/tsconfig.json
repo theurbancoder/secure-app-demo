@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-module-authentication": ["../src/index"],
+      "expo-module-authentication/*": ["../src/*"]
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "name": "@micro/expo-module-secure-core",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc -p tsconfig.plugin.json"
+  },
+  "dependencies": {
+    "expo": "53.0.9",
+    "@expo/config-plugins": "^10.0.2",
+    "expo-modules-core": "2.3.13"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "expo-module-networking": ["../src/index"],
+      "expo-module-networking/*": ["../src/*"]
+    }
+  }
+}
