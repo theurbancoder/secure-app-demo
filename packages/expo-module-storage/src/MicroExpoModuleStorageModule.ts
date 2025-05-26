@@ -1,12 +1,9 @@
-import { NativeModule, requireNativeModule } from 'expo';
+import { NativeModule, requireNativeModule } from "expo";
 
-import { MicroExpoModuleStorageModuleEvents } from './MicroExpoModuleStorage.types';
-
-declare class MicroExpoModuleStorageModule extends NativeModule<MicroExpoModuleStorageModuleEvents> {
-  PI: number;
-  hello(): string;
-  setValueAsync(value: string): Promise<void>;
+declare class StorageModule extends NativeModule {
+  getValue(key: string): Promise<string>;
+  setValue(key: string, value: string): Promise<void>;
+  clearValue(key: string): Promise<void>;
 }
 
-// This call loads the native module object from the JSI.
-export default requireNativeModule<MicroExpoModuleStorageModule>('MicroExpoModuleStorage');
+export default requireNativeModule<StorageModule>("MicroExpoModuleStorage");

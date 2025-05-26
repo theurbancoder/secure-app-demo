@@ -1,50 +1,45 @@
 package expo.modules.modulestorage
 
+import com.theurbancoder.kotlin.secore.core.SecureCore
+import expo.modules.kotlin.Promise
+import expo.modules.kotlin.exception.CodedException
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import java.net.URL
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class MicroExpoModuleStorageModule : Module() {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
+class MicroExpoModuleStorageModule : Module(), KoinComponent {
+
+  val secureCore : SecureCore by inject<SecureCore>()
+
   override fun definition() = ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('MicroExpoModuleStorage')` in JavaScript.
     Name("MicroExpoModuleStorage")
+    AsyncFunction("setValue", @StorageModule::setValue)
+    AsyncFunction("getValue", @StorageModule::getValue)
+    AsyncFunction("clearValue", @StorageModule::clearValue)
+  }
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants(
-      "PI" to Math.PI
-    )
-
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
-
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      "Hello world! 👋"
+  private fun setValue(key: String, value: String, promise: Promise) {
+    try {
+      promise.resolve(secureCore.storeValue(key, value))
+    } catch (e: CodedException) {
+      promise.reject(e)
     }
+  }
 
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { value: String ->
-      // Send an event to JavaScript.
-      sendEvent("onChange", mapOf(
-        "value" to value
-      ))
+  private fun getValue(key: String, promise: Promise) {
+    try {
+      promise.resolve(secureCore.getValue(key))
+    } catch (e: CodedException) {
+      promise.reject(e)
     }
+  }
 
-    // Enables the module to be used as a native view. Definition components that are accepted as part of
-    // the view definition: Prop, Events.
-    View(MicroExpoModuleStorageView::class) {
-      // Defines a setter for the `url` prop.
-      Prop("url") { view: MicroExpoModuleStorageView, url: URL ->
-        view.webView.loadUrl(url.toString())
-      }
-      // Defines an event that the view can send to JavaScript.
-      Events("onLoad")
+  private fun clearValue(key: String, promise: Promise) {
+    try {
+      promise.resolve(secureCore.clearValue(key))
+    } catch (e: CodedException) {
+      promise.reject(e)
     }
   }
 }

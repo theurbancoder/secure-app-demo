@@ -1,9 +1,0 @@
-{
-  "platforms": ["apple", "android", "web"],
-  "apple": {
-    "modules": ["MicroExpoModuleSecureCoreModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.microexpomodulesecurecore.MicroExpoModuleSecureCoreModule"]
-  }
-}

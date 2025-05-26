@@ -40,4 +40,8 @@ android {
   lintOptions {
     abortOnError false
   }
+  dependencies {
+    implementation("io.insert-koin:koin-android:4.0.4")
+    implementation project(":kotlin-secure-core")
+  }
 }
