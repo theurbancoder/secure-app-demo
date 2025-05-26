@@ -11,19 +11,16 @@ class MicroExpoModuleAuthenticationModule : Module(), KoinComponent {
 
   override fun definition() = ModuleDefinition {
     Name("MicroExpoModuleAuthentication")
-    Constants(constants)
+    Constants((
+            "isAuthenticated" to secureCore.getAuthenticationState()
+            ))
     Events("onSecureCoreStateChange")
-    AsyncFunction("authenticate", MicroExpoModuleAuthenticationModule::authenticate)
+    AsyncFunction("authenticate") { ->
+      secureCore.authetenticate()
+      sendEvent("onSecureCoreStateChange", mapOf(
+        "isAuthenticated" to secureCore.getAuthenticationState()
+      ))
+    }
   }
 
-  private val constants: Pair<String, Any?> = (
-    "isAuthenticated" to secureCore.getAuthenticationState()
-  )
-  
-  private fun authenticate() {
-    secureCore.authetenticate()
-    sendEvent("onSecureCoreStateChange", mapOf(
-      "isAuthenticated" to secureCore.getAuthenticationState()
-    ))
-  }
 }

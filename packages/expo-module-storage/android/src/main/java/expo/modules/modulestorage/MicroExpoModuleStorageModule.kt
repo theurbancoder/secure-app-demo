@@ -14,32 +14,26 @@ class MicroExpoModuleStorageModule : Module(), KoinComponent {
 
   override fun definition() = ModuleDefinition {
     Name("MicroExpoModuleStorage")
-    AsyncFunction("setValue", @StorageModule::setValue)
-    AsyncFunction("getValue", @StorageModule::getValue)
-    AsyncFunction("clearValue", @StorageModule::clearValue)
-  }
-
-  private fun setValue(key: String, value: String, promise: Promise) {
-    try {
-      promise.resolve(secureCore.storeValue(key, value))
-    } catch (e: CodedException) {
-      promise.reject(e)
+    AsyncFunction("setValue") { key: String, value: String, promise: Promise ->
+      try {
+        promise.resolve(secureCore.storeValue(key, value))
+      } catch (e: CodedException) {
+        promise.reject(e)
+      }
     }
-  }
-
-  private fun getValue(key: String, promise: Promise) {
-    try {
-      promise.resolve(secureCore.getValue(key))
-    } catch (e: CodedException) {
-      promise.reject(e)
+    AsyncFunction("getValue") { key: String, promise: Promise ->
+      try {
+        promise.resolve(secureCore.getValue(key))
+      } catch (e: CodedException) {
+        promise.reject(e)
+      }
     }
-  }
-
-  private fun clearValue(key: String, promise: Promise) {
-    try {
-      promise.resolve(secureCore.clearValue(key))
-    } catch (e: CodedException) {
-      promise.reject(e)
+    AsyncFunction("clearValue") { key: String, promise: Promise ->
+      try {
+        promise.resolve(secureCore.clearValue(key))
+      } catch (e: CodedException) {
+        promise.reject(e)
+      }
     }
   }
 }
